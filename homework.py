@@ -138,11 +138,10 @@ def read_package(workout_type: str, data: list) -> Training:
         'RUN': Running,
         'WLK': SportsWalking,
     }
-    try:
-        return dict_training[workout_type](*data)
-    except KeyError:
-        print(f'KeyError: {dict_training} '
-              '- данной тренировки не найдено.')
+    if workout_type not in dict_training:
+        raise KeyError(
+            f'KeyError: {dict_training} - данной тренировки не найдено.')
+    return dict_training[workout_type](*data)
 
 
 def main(training: Training) -> None:
